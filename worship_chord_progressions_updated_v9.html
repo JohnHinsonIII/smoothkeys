@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Worship Chord Progressions - Keyboard Accompliment Flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1f2937;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: clamp(8px, 2vw, 16px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: clamp(16px, 3vw, 24px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: clamp(16px, 4vw, 24px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        .pattern-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(6px, 1.5vw, 12px);
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .pattern {
+            font-size: clamp(0.7rem, 2vw, 1rem);
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+            color: white;
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 16px);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: clamp(12px, 3vw, 20px);
+            margin-bottom: clamp(16px, 3vw, 24px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            text-align: center;
+        }
+
+        .key-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: clamp(6px, 1.5vw, 10px);
+            margin-bottom: 15px;
+        }
+
+        .key-btn {
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            border: 2px solid #cbd5e0;
+            color: #374151;
+            padding: clamp(8px, 2vw, 12px) clamp(4px, 1vw, 8px);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 1rem);
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .key-btn:hover {
+            background: linear-gradient(145deg, #e2e8f0, #cbd5e0);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .key-btn.active {
+            background: linear-gradient(145deg, #f59e0b, #d97706);
+            color: white;
+            border-color: #b45309;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .progression-display {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: clamp(16px, 4vw, 24px);
+            margin-bottom: clamp(16px, 3vw, 24px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-key {
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .chord-progression {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: 20px;
+        }
+
+        .chord-box {
+            background: linear-gradient(145deg, #f59e0b, #d97706);
+            border: 2px solid #b45309;
+            border-radius: 10px;
+            padding: clamp(10px, 2.5vw, 16px);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: clamp(90px, 20vw, 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .chord-box:hover {
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .chord-box.selected {
+            background: linear-gradient(145deg, #1f2937, #111827);
+            color: white;
+            border-color: #374151;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(31, 41, 55, 0.6);
+        }
+
+        .chord-number {
+            font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 2px 6px;
+        }
+
+        .chord-name {
+            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .roman-numeral {
+            font-size: clamp(0.6rem, 1.8vw, 0.9rem);
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 4px;
+        }
+
+        .chord-type {
+            font-size: clamp(0.5rem, 1.4vw, 0.8rem);
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            padding: 2px 4px;
+        }
+
+        .detail-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: clamp(16px, 4vw, 24px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: clamp(16px, 3vw, 24px);
+        }
+
+        .detail-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .selected-chord-name {
+            font-size: clamp(1.3rem, 4vw, 2rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .chord-info {
+            font-size: clamp(0.7rem, 2vw, 1rem);
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(16px, 4vw, 24px);
+            align-items: start;
+        }
+
+        .piano-section, .bass-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: clamp(12px, 3vw, 20px);
+        }
+
+        .section-title {
+            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .piano-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .piano-keyboard {
+            position: relative;
+            display: inline-flex;
+            transform: scale(clamp(0.4, 0.8vw, 0.9));
+            transform-origin: center;
+            min-width: 500px;
+        }
+
+        .white-keys {
+            display: flex;
+        }
+
+        .white-key {
+            width: 24px;
+            height: 80px;
+            border: 2px solid #d1d5db;
+            background-color: white;
+            margin-right: 1px;
+            border-radius: 0 0 4px 4px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .white-key.left-hand {
+            background: linear-gradient(180deg, #60a5fa, #3b82f6);
+            border-color: #1d4ed8;
+            box-shadow: inset 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+
+        .white-key.right-hand {
+            background: linear-gradient(180deg, #f87171, #ef4444);
+            border-color: #dc2626;
+            box-shadow: inset 0 2px 4px rgba(239, 68, 68, 0.3);
+        }
+
+        .white-key.both-hands {
+            background: linear-gradient(180deg, #a78bfa, #8b5cf6);
+            border-color: #7c3aed;
+            box-shadow: inset 0 2px 4px rgba(139, 92, 246, 0.3);
+        }
+
+        .black-keys {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .black-key {
+            position: absolute;
+            width: 16px;
+            height: 50px;
+            background: linear-gradient(180deg, #374151, #1f2937);
+            border: 1px solid #111827;
+            border-radius: 0 0 3px 3px;
+            transition: all 0.2s ease;
+        }
+
+        .black-key.left-hand {
+            background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+            border-color: #1e40af;
+        }
+
+        .black-key.right-hand {
+            background: linear-gradient(180deg, #ef4444, #dc2626);
+            border-color: #b91c1c;
+        }
+
+        .black-key.both-hands {
+            background: linear-gradient(180deg, #8b5cf6, #7c3aed);
+            border-color: #6d28d9;
+        }
+
+        .key-label {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .white-key.left-hand .key-label,
+        .white-key.right-hand .key-label,
+        .white-key.both-hands .key-label {
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+
+        .fingering-info {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.7rem, 1.8vw, 1rem);
+            color: #374151;
+            background: white;
+            padding: clamp(12px, 3vw, 16px);
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #f59e0b;
+        }
+
+        .chord-details {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: clamp(16px, 4vw, 24px);
+            margin: 20px 0;
+        }
+
+        .chord-details h4 {
+            color: #92400e;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .chord-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: clamp(10px, 2.5vw, 16px);
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: white;
+            padding: clamp(10px, 2.5vw, 14px);
+            border-radius: 8px;
+            border: 1px solid #f59e0b;
+        }
+
+        .info-label {
+            font-weight: 700;
+            color: #92400e;
+            font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #1f2937;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+        }
+
+        .bass-grid {
+            background: #1f2937;
+            color: #ffffff;
+            padding: clamp(12px, 3vw, 20px);
+            border-radius: 12px;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        .bass-grid-title {
+            color: #60a5fa;
+            font-weight: bold;
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .bass-fretboard {
+            min-width: 600px;
+            margin: 0 auto;
+        }
+
+        .string-row {
+            display: grid;
+            grid-template-columns: 60px repeat(12, 1fr);
+            gap: 2px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .string-label {
+            background: #374151;
+            color: #60a5fa;
+            padding: clamp(6px, 1.5vw, 10px);
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+        }
+
+        .fret {
+            height: clamp(25px, 6vw, 35px);
+            border: 1px solid #4b5563;
+            background: #374151;
+            border-radius: 3px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+            font-weight: bold;
+            color: #d1d5db;
+            transition: all 0.2s ease;
+        }
+
+        .fret.active {
+            background: #10b981;
+            color: white;
+            border-color: #059669;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+
+        .fret.root {
+            background: #ef4444;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .fret-number-row {
+            display: grid;
+            grid-template-columns: 60px repeat(12, 1fr);
+            gap: 2px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .fret-number {
+            text-align: center;
+            color: #fbbf24;
+            font-weight: bold;
+            font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+        }
+
+        .bass-tab {
+            background: #111827;
+            color: #ffffff;
+            padding: clamp(12px, 3vw, 16px);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+            text-align: left;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        .bass-tab-line {
+            margin: 2px 0;
+            white-space: nowrap;
+        }
+
+        .bass-tab .string-label {
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        .bass-tab .fret-number {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .bass-notes {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.7rem, 1.8vw, 1rem);
+            color: #059669;
+            background: white;
+            padding: clamp(8px, 2vw, 12px);
+            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: 600;
+            border: 2px solid #10b981;
+        }
+
+        .legend {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: clamp(12px, 3vw, 20px);
+            border-radius: 15px;
+            margin-top: clamp(16px, 3vw, 24px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1f2937;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            text-align: center;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: clamp(8px, 2vw, 12px);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+        }
+
+        .color-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 2px solid #d1d5db;
+            flex-shrink: 0;
+        }
+
+        .color-blue { background: linear-gradient(45deg, #60a5fa, #3b82f6); }
+        .color-red { background: linear-gradient(45deg, #f87171, #ef4444); }
+        .color-purple { background: linear-gradient(45deg, #a78bfa, #8b5cf6); }
+        .color-orange { background: linear-gradient(45deg, #fbbf24, #f59e0b); }
+        .color-green { background: linear-gradient(45deg, #34d399, #10b981); }
+
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .chord-progression {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .pattern-row {
+                gap: 4px;
+            }
+
+            .pattern {
+                padding: 4px 8px;
+                min-width: 35px;
+            }
+
+            .piano-keyboard {
+                transform: scale(0.35);
+                min-width: 400px;
+            }
+
+            .bass-fretboard {
+                min-width: 400px;
+            }
+
+            .string-row {
+                grid-template-columns: 40px repeat(12, 1fr);
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .chord-progression {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .piano-keyboard {
+                transform: scale(0.5);
+            }
+
+            .bass-fretboard {
+                min-width: 500px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .detail-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .chord-progression {
+                grid-template-columns: repeat(8, 1fr);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .detail-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .chord-progression {
+                grid-template-columns: repeat(8, 1fr);
+            }
+
+            .piano-keyboard {
+                transform: scale(0.8);
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .detail-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .key-btn, .chord-box {
+                min-height: 48px;
+            }
+
+            .key-btn:hover, .chord-box:hover {
+                transform: none;
+            }
+
+            .key-btn:active, .chord-box:active {
+                transform: scale(0.95);
+            }
+
+            .fret {
+                min-height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Complete Keyboard Accompliment Flow</h1>
+            <p class="subtitle">Interactive Worship Chord Progressions with Piano, Bass & Theory</p>
+            <div class="pattern-row">
+                <span class="pattern">1</span>
+                <span class="pattern">2m</span>
+                <span class="pattern">1/3</span>
+                <span class="pattern">4</span>
+                <span class="pattern">5</span>
+                <span class="pattern">6m</span>
+                <span class="pattern">5/7</span>
+                <span class="pattern">1</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <h3>Select Key:</h3>
+            <div class="key-selector" id="keySelector"></div>
+        </div>
+
+        <div class="progression-display">
+            <div class="current-key" id="currentKey">C Major</div>
+            <div class="chord-progression" id="chordProgression"></div>
+        </div>
+
+        <div class="detail-panel">
+            <div class="detail-header">
+                <div class="selected-chord-name" id="selectedChordName">Select a chord above</div>
+                <div class="chord-info" id="chordInfo">Click on any chord to see detailed piano fingerings, bass patterns, and theory information</div>
+            </div>
+            <div class="detail-content" id="detailContent" style="display: none;">
+                <div class="piano-section">
+                    <h4 class="section-title">🎹 Piano Keyboard</h4>
+                    <div class="piano-container" id="pianoContainer"></div>
+                    <div class="fingering-info" id="fingeringInfo"></div>
+                    <div class="chord-details" id="chordDetails"></div>
+                </div>
+                <div class="bass-section">
+                    <h4 class="section-title">🎸 Bass Guitar</h4>
+                    <div class="bass-notes" id="bassNotes"></div>
+                    <div class="bass-grid" id="bassGrid"></div>
+                    <div class="bass-tab" id="bassTab"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-title">Color Guide & Reference</div>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="color-box color-blue"></div>
+                    <span>Left Hand</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box color-red"></div>
+                    <span>Right Hand</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box color-purple"></div>
+                    <span>Both Hands</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box color-orange"></div>
+                    <span>Selected</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box color-green"></div>
+                    <span>Bass Root</span>
+                </div>
+            </div>
+            <p style="margin-top: 15px; font-style: italic; color: #6b7280; text-align: center; font-size: clamp(0.7rem, 1.8vw, 1rem);">
+                Complete keyboard accompliment flow for worship music with responsive design for all devices.
+                Includes all 12 keys, complete chord information, and interactive bass fretboard.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const chordPattern = [
+            { roman: 'I', type: 'M', fingering: '1.3.5', bass: 'Tonic', description: 'Major triad' },
+            { roman: 'ii', type: 'm11', fingering: '1.4.5', bass: 'Tonic', description: 'Minor with 11th' },
+            { roman: 'I/3', type: 'M', fingering: '1.3.5', bass: '3rd', description: 'Major over 3rd' },
+            { roman: 'IV', type: 'sus2', fingering: '1.4.5', bass: 'Tonic', description: 'Suspended 2nd' },
+            { roman: 'V', type: 'sus4', fingering: '1.2.5', bass: 'Tonic', description: 'Suspended 4th' },
+            { roman: 'vi', type: 'm7', fingering: '1.3.5', bass: 'Tonic', description: 'Minor 7th' },
+            { roman: 'V/7', type: 'add11/7th', fingering: '1.2.5', bass: '7th', description: 'Add 11th over 7th' },
+            { roman: 'I', type: 'M', fingering: '1.3.5', bass: 'Tonic', description: 'Major triad (resolution)' }
+        ];
+
+        const keyProgressions = {
+            'C': ['C', 'Dm', 'C/E', 'F', 'G', 'Am', 'G/B', 'C'],
+            'G': ['G', 'Am', 'G/B', 'C', 'D', 'Em', 'D/F#', 'G'],
+            'D': ['D', 'Em', 'D/F#', 'G', 'A', 'Bm', 'A/C#', 'D'],
+            'A': ['A', 'Bm', 'A/C#', 'D', 'E', 'F#m', 'E/G#', 'A'],
+            'E': ['E', 'F#m', 'E/G#', 'A', 'B', 'C#m', 'B/D#', 'E'],
+            'B': ['B', 'C#m', 'B/D#', 'E', 'F#', 'G#m', 'F#/A#', 'B'],
+            'F#': ['F#', 'G#m', 'F#/A#', 'B', 'C#', 'D#m', 'C#/E#', 'F#'],
+            'Db': ['Db', 'Ebm', 'Db/F', 'Gb', 'Ab', 'Bbm', 'Ab/C', 'Db'],
+            'F': ['F', 'Gm', 'F/A', 'Bb', 'C', 'Dm', 'C/E', 'F'],
+            'Bb': ['Bb', 'Cm', 'Bb/D', 'Eb', 'F', 'Gm', 'F/A', 'Bb'],
+            'Eb': ['Eb', 'Fm', 'Eb/G', 'Ab', 'Bb', 'Cm', 'Bb/D', 'Eb'],
+            'Ab': ['Ab', 'Bbm', 'Ab/C', 'Db', 'Eb', 'Fm', 'Eb/G', 'Ab']
+        };
+
+        // Complete right hand fingerings for all keys
+        const rightHandFingerings = {
+            // C Major Key
+            'C': ['C4', 'E4', 'G4'],     'Dm': ['D4', 'G4', 'A4'],    'C/E': ['C4', 'E4', 'G4'],   
+            'F': ['F4', 'Bb4', 'C5'],    'G': ['G4', 'A4', 'D5'],     'Am': ['A4', 'C5', 'E5'],    'G/B': ['G4', 'A4', 'D5'],
+            
+            // G Major Key
+            'G': ['G4', 'B4', 'D5'],     'Am': ['A4', 'D5', 'E5'],    'G/B': ['G4', 'B4', 'D5'],   
+            'D': ['D4', 'E4', 'A4'],     'Em': ['E4', 'G4', 'B4'],    'D/F#': ['D4', 'E4', 'A4'],
+            
+            // D Major Key  
+            'Em': ['E4', 'A4', 'B4'],    'D/F#': ['D4', 'F#4', 'A4'], 'A': ['A4', 'B4', 'E5'],     
+            'Bm': ['B4', 'D5', 'F#5'],   'A/C#': ['A4', 'B4', 'E5'],
+            
+            // A Major Key
+            'A': ['A4', 'C#5', 'E5'],    'Bm': ['B4', 'E5', 'F#5'],   'A/C#': ['A4', 'C#5', 'E5'], 
+            'E': ['E4', 'F#4', 'B4'],    'F#m': ['F#4', 'A4', 'C#5'], 'E/G#': ['E4', 'F#4', 'B4'],
+            
+            // E Major Key
+            'E': ['E4', 'G#4', 'B4'],    'F#m': ['F#4', 'B4', 'C#5'], 'E/G#': ['E4', 'G#4', 'B4'], 
+            'B': ['B4', 'C#5', 'F#5'],   'C#m': ['C#5', 'E5', 'G#5'], 'B/D#': ['B4', 'C#5', 'F#5'],
+            
+            // B Major Key
+            'B': ['B4', 'D#5', 'F#5'],   'C#m': ['C#5', 'F#5', 'G#5'], 'B/D#': ['B4', 'D#5', 'F#5'], 
+            'F#': ['F#4', 'G#4', 'C#5'], 'G#m': ['G#4', 'B4', 'D#5'], 'F#/A#': ['F#4', 'G#4', 'C#5'],
+            
+            // F# Major Key
+            'F#': ['F#4', 'A#4', 'C#5'], 'G#m': ['G#4', 'C#5', 'D#5'], 'F#/A#': ['F#4', 'A#4', 'C#5'], 
+            'C#': ['C#5', 'D#5', 'G#5'], 'D#m': ['D#5', 'F#5', 'A#5'], 'C#/E#': ['C#5', 'D#5', 'G#5'],
+            
+            // Db Major Key
+            'Db': ['Db4', 'F4', 'Ab4'],  'Ebm': ['Eb4', 'Ab4', 'Bb4'], 'Db/F': ['Db4', 'F4', 'Ab4'], 
+            'Gb': ['Gb4', 'Ab4', 'Db5'], 'Ab': ['Ab4', 'Bb4', 'Eb5'], 'Bbm': ['Bb4', 'Db5', 'F5'], 'Ab/C': ['Ab4', 'Bb4', 'Eb5'],
+            
+            // F Major Key
+            'F': ['F4', 'A4', 'C5'],     'Gm': ['G4', 'C5', 'D5'],    'F/A': ['F4', 'A4', 'C5'],   
+            'Bb': ['Bb4', 'C5', 'F5'],   'C': ['C4', 'D4', 'G4'],     'C/E': ['C4', 'D4', 'G4'],
+            
+            // Bb Major Key
+            'Bb': ['Bb4', 'D5', 'F5'],   'Cm': ['C5', 'F5', 'G5'],    'Bb/D': ['Bb4', 'D5', 'F5'], 
+            'Eb': ['Eb4', 'F4', 'Bb4'],  'Gm': ['G4', 'Bb4', 'D5'],   'F/A': ['F4', 'G4', 'C5'],
+            
+            // Eb Major Key
+            'Eb': ['Eb4', 'G4', 'Bb4'],  'Fm': ['F4', 'Bb4', 'C5'],   'Eb/G': ['Eb4', 'G4', 'Bb4'], 
+            'Bb': ['Bb4', 'C5', 'F5'],   'Cm': ['C5', 'Eb5', 'G5'],   'Bb/D': ['Bb4', 'C5', 'F5'],
+            
+            // Ab Major Key
+            'Ab': ['Ab4', 'C5', 'Eb5'],  'Bbm': ['Bb4', 'Eb5', 'F5'], 'Ab/C': ['Ab4', 'C5', 'Eb5'], 
+            'Fm': ['F4', 'Ab4', 'C5'],   'Eb/G': ['Eb4', 'F4', 'Bb4']
+        };
+
+        // Complete left hand notes for all keys
+        const leftHandNotes = {
+            // C Major Key
+            'C': ['C3'], 'Dm': ['D3'], 'C/E': ['E3'], 'F': ['F3'], 'G': ['G3'], 'Am': ['A3'], 'G/B': ['B3'],
+            
+            // G Major Key
+            'G': ['G3'], 'Am': ['A3'], 'G/B': ['B3'], 'D': ['D3'], 'Em': ['E3'], 'D/F#': ['F#3'],
+            
+            // D Major Key
+            'D': ['D3'], 'Em': ['E3'], 'D/F#': ['F#3'], 'A': ['A3'], 'Bm': ['B3'], 'A/C#': ['C#3'],
+            
+            // A Major Key
+            'A': ['A3'], 'Bm': ['B3'], 'A/C#': ['C#3'], 'E': ['E3'], 'F#m': ['F#3'], 'E/G#': ['G#3'],
+            
+            // E Major Key
+            'E': ['E3'], 'F#m': ['F#3'], 'E/G#': ['G#3'], 'B': ['B3'], 'C#m': ['C#3'], 'B/D#': ['D#3'],
+            
+            // B Major Key
+            'B': ['B3'], 'C#m': ['C#3'], 'B/D#': ['D#3'], 'F#': ['F#3'], 'G#m': ['G#3'], 'F#/A#': ['A#3'],
+            
+            // F# Major Key
+            'F#': ['F#3'], 'G#m': ['G#3'], 'F#/A#': ['A#3'], 'C#': ['C#3'], 'D#m': ['D#3'], 'C#/E#': ['E#3'],
+            
+            // Db Major Key
+            'Db': ['Db3'], 'Ebm': ['Eb3'], 'Db/F': ['F3'], 'Gb': ['Gb3'], 'Ab': ['Ab3'], 'Bbm': ['Bb3'], 'Ab/C': ['C3'],
+            
+            // F Major Key
+            'F': ['F3'], 'Gm': ['G3'], 'F/A': ['A3'], 'Bb': ['Bb3'], 'C': ['C3'], 'Dm': ['D3'], 'C/E': ['E3'],
+            
+            // Bb Major Key
+            'Bb': ['Bb3'], 'Cm': ['C3'], 'Bb/D': ['D3'], 'Eb': ['Eb3'], 'Fm': ['F3'], 'Gm': ['G3'], 'F/A': ['A3'],
+            
+            // Eb Major Key
+            'Eb': ['Eb3'], 'Fm': ['F3'], 'Eb/G': ['G3'], 'Ab': ['Ab3'], 'Bb': ['Bb3'], 'Cm': ['C3'], 'Bb/D': ['D3'],
+            
+            // Ab Major Key
+            'Ab': ['Ab3'], 'Bbm': ['Bb3'], 'Ab/C': ['C3'], 'Db': ['Db3'], 'Eb': ['Eb3'], 'Fm': ['F3'], 'Eb/G': ['G3']
+        };
+
+        // Complete bass tablature for all chords
+        const bassPatterns = {
+            // Major chords
+            'C': { root: 'C', frets: [3, 0, 3, 0], notes: ['C2', 'E2', 'G2', 'C3'] },
+            'G': { root: 'G', frets: [3, 2, 5, 3], notes: ['G2', 'B2', 'D3', 'G3'] },
+            'D': { root: 'D', frets: [5, 2, 0, 5], notes: ['D2', 'F#2', 'A2', 'D3'] },
+            'A': { root: 'A', frets: [0, 2, 2, 0], notes: ['A2', 'C#3', 'E3', 'A3'] },
+            'E': { root: 'E', frets: [0, 2, 1, 0], notes: ['E2', 'G#2', 'B2', 'E3'] },
+            'B': { root: 'B', frets: [2, 4, 4, 2], notes: ['B2', 'D#3', 'F#3', 'B3'] },
+            'F#': { root: 'F#', frets: [2, 4, 3, 2], notes: ['F#2', 'A#2', 'C#3', 'F#3'] },
+            'Db': { root: 'Db', frets: [4, 1, 1, 4], notes: ['Db2', 'F2', 'Ab2', 'Db3'] },
+            'F': { root: 'F', frets: [1, 3, 3, 1], notes: ['F2', 'A2', 'C3', 'F3'] },
+            'Bb': { root: 'Bb', frets: [1, 3, 3, 1], notes: ['Bb2', 'D3', 'F3', 'Bb3'] },
+            'Eb': { root: 'Eb', frets: [6, 8, 8, 6], notes: ['Eb2', 'G2', 'Bb2', 'Eb3'] },
+            'Ab': { root: 'Ab', frets: [4, 6, 6, 4], notes: ['Ab2', 'C3', 'Eb3', 'Ab3'] },
+            'Gb': { root: 'Gb', frets: [2, 4, 4, 2], notes: ['Gb2', 'Bb2', 'Db3', 'Gb3'] },
+            
+            // Minor chords
+            'Dm': { root: 'D', frets: [5, 3, 0, 5], notes: ['D2', 'F2', 'A2', 'D3'] },
+            'Am': { root: 'A', frets: [0, 3, 2, 0], notes: ['A2', 'C3', 'E3', 'A3'] },
+            'Em': { root: 'E', frets: [0, 3, 2, 0], notes: ['E2', 'G2', 'B2', 'E3'] },
+            'Bm': { root: 'B', frets: [2, 4, 2, 2], notes: ['B2', 'D3', 'F#3', 'B3'] },
+            'F#m': { root: 'F#', frets: [2, 4, 2, 2], notes: ['F#2', 'A2', 'C#3', 'F#3'] },
+            'C#m': { root: 'C#', frets: [4, 6, 4, 4], notes: ['C#2', 'E2', 'G#2', 'C#3'] },
+            'G#m': { root: 'G#', frets: [4, 6, 4, 4], notes: ['G#2', 'B2', 'D#3', 'G#3'] },
+            'D#m': { root: 'D#', frets: [6, 8, 6, 6], notes: ['D#2', 'F#2', 'A#2', 'D#3'] },
+            'Ebm': { root: 'Eb', frets: [6, 8, 6, 6], notes: ['Eb2', 'Gb2', 'Bb2', 'Eb3'] },
+            'Bbm': { root: 'Bb', frets: [1, 3, 1, 1], notes: ['Bb2', 'Db3', 'F3', 'Bb3'] },
+            'Fm': { root: 'F', frets: [1, 3, 1, 1], notes: ['F2', 'Ab2', 'C3', 'F3'] },
+            'Cm': { root: 'C', frets: [3, 5, 3, 3], notes: ['C2', 'Eb2', 'G2', 'C3'] },
+            'Gm': { root: 'G', frets: [3, 5, 3, 3], notes: ['G2', 'Bb2', 'D3', 'G3'] },
+            
+            // Slash chords (bass note specified)
+            'C/E': { root: 'E', frets: [0, 3, 0, 0], notes: ['E2', 'G2', 'C3', 'E3'] },
+            'G/B': { root: 'B', frets: [2, 5, 2, 2], notes: ['B2', 'D3', 'G3', 'B3'] },
+            'D/F#': { root: 'F#', frets: [2, 0, 2, 2], notes: ['F#2', 'A2', 'D3', 'F#3'] },
+            'A/C#': { root: 'C#', frets: [4, 2, 4, 4], notes: ['C#2', 'E2', 'A2', 'C#3'] },
+            'E/G#': { root: 'G#', frets: [4, 1, 4, 4], notes: ['G#2', 'B2', 'E3', 'G#3'] },
+            'B/D#': { root: 'D#', frets: [6, 4, 6, 6], notes: ['D#2', 'F#2', 'B2', 'D#3'] },
+            'F#/A#': { root: 'A#', frets: [1, 3, 1, 1], notes: ['A#2', 'C#3', 'F#3', 'A#3'] },
+            'C#/E#': { root: 'E#', frets: [0, 4, 0, 0], notes: ['E#2', 'G#2', 'C#3', 'E#3'] },
+            'F/A': { root: 'A', frets: [0, 3, 0, 0], notes: ['A2', 'C3', 'F3', 'A3'] },
+            'Bb/D': { root: 'D', frets: [5, 3, 5, 5], notes: ['D2', 'F2', 'Bb2', 'D3'] },
+            'Eb/G': { root: 'G', frets: [3, 8, 3, 3], notes: ['G2', 'Bb2', 'Eb3', 'G3'] },
+            'Ab/C': { root: 'C', frets: [3, 6, 3, 3], notes: ['C2', 'Eb2', 'Ab2', 'C3'] },
+            'Db/F': { root: 'F', frets: [1, 1, 1, 1], notes: ['F2', 'Ab2', 'Db3', 'F3'] },
+            'C/E': { root: 'E', frets: [0, 3, 0, 0], notes: ['E2', 'G2', 'C3', 'E3'] }
+        };
+
+        const noteToKey = {
+            'C3': -12, 'C#3': -11, 'Db3': -11, 'D3': -10, 'D#3': -9, 'Eb3': -9, 'E3': -8, 'E#3': -7, 'F3': -7, 'F#3': -6, 'Gb3': -6,
+            'G3': -5, 'G#3': -4, 'Ab3': -4, 'A3': -3, 'A#3': -2, 'Bb3': -2, 'B3': -1, 'B#3': 0,
+            'C4': 0, 'C#4': 1, 'Db4': 1, 'D4': 2, 'D#4': 3, 'Eb4': 3, 'E4': 4, 'E#4': 5, 'F4': 5, 'F#4': 6, 'Gb4': 6,
+            'G4': 7, 'G#4': 8, 'Ab4': 8, 'A4': 9, 'A#4': 10, 'Bb4': 10, 'B4': 11, 'B#4': 12,
+            'C5': 12, 'C#5': 13, 'Db5': 13, 'D5': 14, 'D#5': 15, 'Eb5': 15, 'E5': 16, 'E#5': 17, 'F5': 17, 'F#5': 18, 'Gb5': 18,
+            'G5': 19, 'G#5': 20, 'Ab5': 20, 'A5': 21, 'A#5': 22, 'Bb5': 22, 'B5': 23, 'C6': 24
+        };
+
+        const bassStrings = ['E', 'A', 'D', 'G'];
+        const bassNotes = {
+            'E': ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'],
+            'A': ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'],
+            'D': ['D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#'],
+            'G': ['G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#']
+        };
+
+        let currentKey = 'C';
+        let selectedChord = null;
+
+        function isBlackKey(keyIndex) {
+            const blackKeys = [-11, -9, -6, -4, -2, 1, 3, 6, 8, 10, 13, 15, 18, 20, 22];
+            return blackKeys.includes(keyIndex);
+        }
+
+        function getNoteNameFromIndex(keyIndex) {
+            const noteNames = {
+                '-12': 'C', '-11': 'C#', '-10': 'D', '-9': 'D#', '-8': 'E', '-7': 'F', '-6': 'F#', 
+                '-5': 'G', '-4': 'G#', '-3': 'A', '-2': 'A#', '-1': 'B',
+                '0': 'C', '1': 'C#', '2': 'D', '3': 'D#', '4': 'E', '5': 'F', '6': 'F#', 
+                '7': 'G', '8': 'G#', '9': 'A', '10': 'A#', '11': 'B',
+                '12': 'C', '13': 'C#', '14': 'D', '15': 'D#', '16': 'E', '17': 'F', '18': 'F#', 
+                '19': 'G', '20': 'G#', '21': 'A', '22': 'A#', '23': 'B', '24': 'C'
+            };
+            return noteNames[keyIndex] || '';
+        }
+
+        function createPianoKeyboard(leftHandNotes = [], rightHandNotes = []) {
+            const leftPressedKeys = new Set();
+            const rightPressedKeys = new Set();
+            
+            leftHandNotes.forEach(note => {
+                if (noteToKey[note] !== undefined) {
+                    leftPressedKeys.add(noteToKey[note]);
+                }
+            });
+            
+            rightHandNotes.forEach(note => {
+                if (noteToKey[note] !== undefined) {
+                    rightPressedKeys.add(noteToKey[note]);
+                }
+            });
+
+            const keyboard = document.createElement('div');
+            keyboard.className = 'piano-keyboard';
+            
+            const whiteKeysContainer = document.createElement('div');
+            whiteKeysContainer.className = 'white-keys';
+            
+            const blackKeysContainer = document.createElement('div');
+            blackKeysContainer.className = 'black-keys';
+
+            let whiteKeyIndex = 0;
+            for (let i = -12; i < 25; i++) {
+                const isLeftPressed = leftPressedKeys.has(i);
+                const isRightPressed = rightPressedKeys.has(i);
+                
+                if (isBlackKey(i)) {
+                    const blackKey = document.createElement('div');
+                    blackKey.className = 'black-key';
+                    
+                    if (isLeftPressed && isRightPressed) {
+                        blackKey.classList.add('both-hands');
+                    } else if (isLeftPressed) {
+                        blackKey.classList.add('left-hand');
+                    } else if (isRightPressed) {
+                        blackKey.classList.add('right-hand');
+                    }
+                    
+                    blackKey.style.left = (whiteKeyIndex * 25 - 8) + 'px';
+                    blackKeysContainer.appendChild(blackKey);
+                } else {
+                    const whiteKey = document.createElement('div');
+                    whiteKey.className = 'white-key';
+                    
+                    if (isLeftPressed && isRightPressed) {
+                        whiteKey.classList.add('both-hands');
+                    } else if (isLeftPressed) {
+                        whiteKey.classList.add('left-hand');
+                    } else if (isRightPressed) {
+                        whiteKey.classList.add('right-hand');
+                    }
+
+                    // Add note label
+                    const label = document.createElement('span');
+                    label.className = 'key-label';
+                    label.textContent = getNoteNameFromIndex(i);
+                    whiteKey.appendChild(label);
+                    
+                    whiteKeysContainer.appendChild(whiteKey);
+                    whiteKeyIndex++;
+                }
+            }
+
+            keyboard.appendChild(whiteKeysContainer);
+            keyboard.appendChild(blackKeysContainer);
+            
+            return keyboard;
+        }
+
+        function createBassGrid(chord) {
+            const pattern = bassPatterns[chord];
+            if (!pattern) return '<div>No bass pattern available</div>';
+
+            const chordRoot = pattern.root;
+            const chordNotes = pattern.notes.map(note => note.replace(/\d+/, ''));
+
+            let html = `
+                <div class="bass-grid-title">🎸 Bass Fretboard - ${chord}</div>
+                <div class="bass-fretboard">
+                    <div class="fret-number-row">
+                        <div class="fret-number"></div>
+            `;
+
+            // Fret numbers
+            for (let fret = 0; fret <= 11; fret++) {
+                html += `<div class="fret-number">${fret}</div>`;
+            }
+            html += '</div>';
+
+            // String rows
+            bassStrings.reverse().forEach((stringName, stringIndex) => {
+                html += `<div class="string-row">`;
+                html += `<div class="string-label">${stringName}</div>`;
+                
+                for (let fret = 0; fret <= 11; fret++) {
+                    const note = bassNotes[stringName][fret];
+                    const isChordNote = chordNotes.includes(note);
+                    const isRoot = note === chordRoot;
+                    
+                    let fretClass = 'fret';
+                    if (isRoot) {
+                        fretClass += ' root';
+                    } else if (isChordNote) {
+                        fretClass += ' active';
+                    }
+                    
+                    html += `<div class="${fretClass}">${note}</div>`;
+                }
+                html += '</div>';
+            });
+
+            html += '</div>';
+            return html;
+        }
+
+        function createBassTab(chord) {
+            const pattern = bassPatterns[chord];
+            if (!pattern) return '<div class="bass-tab-line">No tablature available</div>';
+
+            const strings = ['G', 'D', 'A', 'E'];
+            const frets = pattern.frets;
+
+            return strings.map((string, index) => {
+                const fret = frets[index] || 0;
+                let line = `<span class="string-label">${string}</span>|`;
+                
+                for (let i = 0; i < 8; i++) {
+                    if (i % 2 === 0) {
+                        line += `--<span class="fret-number">${fret}</span>--`;
+                    } else {
+                        line += '-----';
+                    }
+                    line += '|';
+                }
+                
+                return `<div class="bass-tab-line">${line}</div>`;
+            }).join('');
+        }
+
+        function initializeKeySelector() {
+            const keySelector = document.getElementById('keySelector');
+            Object.keys(keyProgressions).forEach(key => {
+                const button = document.createElement('button');
+                button.className = 'key-btn';
+                button.textContent = key;
+                button.onclick = () => selectKey(key);
+                keySelector.appendChild(button);
+            });
+            selectKey('C');
+        }
+
+        function selectKey(key) {
+            currentKey = key;
+            selectedChord = null;
+            
+            document.querySelectorAll('.key-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent === key);
+            });
+            
+            document.getElementById('currentKey').textContent = `${key} Major`;
+            updateChordProgression();
+            resetDetailPanel();
+        }
+
+        function updateChordProgression() {
+            const progressionContainer = document.getElementById('chordProgression');
+            const chords = keyProgressions[currentKey];
+            
+            progressionContainer.innerHTML = '';
+            
+            chords.forEach((chord, index) => {
+                const chordBox = document.createElement('div');
+                chordBox.className = 'chord-box';
+                chordBox.onclick = () => selectChord(chord, index);
+                
+                chordBox.innerHTML = `
+                    <div class="chord-number">${index + 1}</div>
+                    <div class="chord-name">${chord}</div>
+                    <div class="roman-numeral">${chordPattern[index].roman}</div>
+                    <div class="chord-type">${chordPattern[index].type}</div>
+                `;
+                
+                progressionContainer.appendChild(chordBox);
+            });
+        }
+
+        function selectChord(chord, index) {
+            selectedChord = chord;
+            
+            document.querySelectorAll('.chord-box').forEach((box, i) => {
+                box.classList.toggle('selected', i === index);
+            });
+            
+            updateDetailPanel(chord, index);
+        }
+
+        function updateDetailPanel(chord, index) {
+            const selectedChordName = document.getElementById('selectedChordName');
+            const chordInfo = document.getElementById('chordInfo');
+            const detailContent = document.getElementById('detailContent');
+            const pianoContainer = document.getElementById('pianoContainer');
+            const fingeringInfo = document.getElementById('fingeringInfo');
+            const chordDetails = document.getElementById('chordDetails');
+            const bassNotes = document.getElementById('bassNotes');
+            const bassGrid = document.getElementById('bassGrid');
+            const bassTab = document.getElementById('bassTab');
+            
+            selectedChordName.textContent = chord;
+            chordInfo.textContent = `Position ${index + 1} - ${chordPattern[index].roman} - ${chordPattern[index].description} with ${chordPattern[index].bass} in bass`;
+            
+            detailContent.style.display = 'grid';
+            
+            // Update piano
+            const leftHand = leftHandNotes[chord] || [];
+            const rightHand = rightHandFingerings[chord] || [];
+            
+            pianoContainer.innerHTML = '';
+            pianoContainer.appendChild(createPianoKeyboard(leftHand, rightHand));
+            
+            fingeringInfo.innerHTML = `
+                <strong>Fingering Pattern:</strong> ${chordPattern[index].fingering}<br>
+                <strong>Left Hand:</strong> ${leftHand.join(' - ')} | <strong>Right Hand:</strong> ${rightHand.join(' - ')}
+            `;
+            
+            // Create detailed chord information
+            const pattern = bassPatterns[chord];
+            const bassRoot = pattern ? pattern.root : leftHand[0]?.replace('3', '');
+            
+            chordDetails.innerHTML = `
+                <h4>🎵 Complete Chord Analysis: ${chord}</h4>
+                <div class="chord-info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Position</div>
+                        <div class="info-value">${index + 1} of 8</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Roman Numeral</div>
+                        <div class="info-value">${chordPattern[index].roman}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Chord Quality</div>
+                        <div class="info-value">${chordPattern[index].type}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Fingering Pattern</div>
+                        <div class="info-value">${chordPattern[index].fingering}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Bass Function</div>
+                        <div class="info-value">${chordPattern[index].bass}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Description</div>
+                        <div class="info-value">${chordPattern[index].description}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Left Hand Notes</div>
+                        <div class="info-value">${leftHand.join(', ')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Right Hand Notes</div>
+                        <div class="info-value">${rightHand.join(', ')}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Bass Root</div>
+                        <div class="info-value">${bassRoot}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Key Context</div>
+                        <div class="info-value">${currentKey} Major</div>
+                    </div>
+                </div>
+            `;
+            
+            // Update bass section
+            if (pattern) {
+                bassNotes.textContent = `Bass Notes: ${pattern.notes.join(' - ')}`;
+                bassGrid.innerHTML = createBassGrid(chord);
+                bassTab.innerHTML = createBassTab(chord);
+            } else {
+                bassNotes.textContent = `Bass Root: ${leftHand.join(', ')}`;
+                bassGrid.innerHTML = '<div style="text-align: center; padding: 20px; color: #9ca3af;">Bass pattern will be added soon</div>';
+                bassTab.innerHTML = '<div class="bass-tab-line">// Tablature pattern coming soon</div>';
+            }
+        }
+
+        function resetDetailPanel() {
+            document.getElementById('selectedChordName').textContent = 'Select a chord above';
+            document.getElementById('chordInfo').textContent = 'Click on any chord to see detailed piano fingerings, bass patterns, and theory information';
+            document.getElementById('detailContent').style.display = 'none';
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeKeySelector();
+            
+            // Add touch event listeners for better mobile experience
+            document.addEventListener('touchstart', function() {}, {passive: true});
+            
+            // Prevent double-tap zoom
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.target.tagName === 'BUTTON') return;
+            
+            const keys = Object.keys(keyProgressions);
+            const currentIndex = keys.indexOf(currentKey);
+            
+            switch(event.key) {
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    if (currentIndex > 0) {
+                        selectKey(keys[currentIndex - 1]);
+                    }
+                    break;
+                case 'ArrowRight':
+                    event.preventDefault();
+                    if (currentIndex < keys.length - 1) {
+                        selectKey(keys[currentIndex + 1]);
+                    }
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();
+                    selectKey(keys[0]);
+                    break;
+                case 'ArrowDown':
+                    event.preventDefault();
+                    selectKey(keys[keys.length - 1]);
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                    event.preventDefault();
+                    const chordIndex = parseInt(event.key) - 1;
+                    const currentChords = keyProgressions[currentKey];
+                    if (chordIndex < currentChords.length) {
+                        selectChord(currentChords[chordIndex], chordIndex);
+                    }
+                    break;
+            }
+        });
+
+        // Window resize handler for responsive adjustments
+        window.addEventListener('resize', function() {
+            // Trigger layout recalculation for piano keyboard
+            const pianoContainer = document.getElementById('pianoContainer');
+            if (pianoContainer && pianoContainer.children.length > 0) {
+                const keyboard = pianoContainer.children[0];
+                keyboard.style.transform = keyboard.style.transform; // Force repaint
+            }
+        });
+
+        // Service Worker registration for offline functionality (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Uncomment if you want offline functionality
+                // navigator.serviceWorker.register('/sw.js');
+            });
+        }
+
+        // Add smooth scrolling for mobile devices
+        function smoothScrollToElement(element) {
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+
+        // Auto-scroll to detail panel when chord is selected on mobile
+        function handleChordSelection(chord, index) {
+            selectChord(chord, index);
+            
+            // On mobile devices, scroll to detail panel
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    const detailPanel = document.querySelector('.detail-panel');
+                    smoothScrollToElement(detailPanel);
+                }, 300);
+            }
+        }
+
+        // Update chord boxes to use new handler
+        function updateChordProgressionWithMobileSupport() {
+            const progressionContainer = document.getElementById('chordProgression');
+            const chords = keyProgressions[currentKey];
+            
+            progressionContainer.innerHTML = '';
+            
+            chords.forEach((chord, index) => {
+                const chordBox = document.createElement('div');
+                chordBox.className = 'chord-box';
+                chordBox.onclick = () => handleChordSelection(chord, index);
+                
+                // Add touch feedback
+                chordBox.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                });
+                
+                chordBox.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+                
+                chordBox.innerHTML = `
+                    <div class="chord-number">${index + 1}</div>
+                    <div class="chord-name">${chord}</div>
+                    <div class="roman-numeral">${chordPattern[index].roman}</div>
+                    <div class="chord-type">${chordPattern[index].type}</div>
+                `;
+                
+                progressionContainer.appendChild(chordBox);
+            });
+        }
+
+        // Replace the original updateChordProgression function
+        function updateChordProgression() {
+            updateChordProgressionWithMobileSupport();
+        }
+
+        // Add performance optimizations
+        const debounce = (func, wait) => {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        // Debounced resize handler
+        const debouncedResize = debounce(() => {
+            // Recalculate any responsive elements if needed
+            if (selectedChord !== null) {
+                const chordIndex = keyProgressions[currentKey].indexOf(selectedChord);
+                if (chordIndex !== -1) {
+                    updateDetailPanel(selectedChord, chordIndex);
+                }
+            }
+        }, 250);
+
+        window.addEventListener('resize', debouncedResize);
+
+        // Add loading states for better UX
+        function showLoadingState(element) {
+            element.innerHTML = '<div style="text-align: center; padding: 20px; color: #9ca3af;">Loading...</div>';
+        }
+
+        function hideLoadingState() {
+            // Loading states are replaced by actual content
+        }
+
+        // Preload bass patterns for smoother experience
+        function preloadBassPatterns() {
+            // This could fetch additional patterns if needed
+            console.log('Bass patterns loaded for all chords');
+        }
+
+        // Initialize preloading
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(preloadBassPatterns, 1000);
+        });
+
+        // Add accessibility improvements
+        function addAccessibilityFeatures() {
+            // Add ARIA labels
+            document.querySelectorAll('.chord-box').forEach((box, index) => {
+                box.setAttribute('role', 'button');
+                box.setAttribute('aria-label', `Select chord ${index + 1}`);
+                box.setAttribute('tabindex', '0');
+                
+                // Add keyboard support for chord boxes
+                box.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // Add ARIA labels to key selector
+            document.querySelectorAll('.key-btn').forEach(btn => {
+                btn.setAttribute('aria-label', `Select key of ${btn.textContent}`);
+            });
+        }
+
+        // Initialize accessibility features after DOM updates
+        const originalUpdateChordProgression = updateChordProgression;
+        updateChordProgression = function() {
+            originalUpdateChordProgression();
+            setTimeout(addAccessibilityFeatures, 100);
+        };
+    </script>
+</body>
+</html>
